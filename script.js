@@ -1,3 +1,5 @@
+//digite em seu terminal " npm install readline-sync "
+//é necessário para que o programa rode, pois ele é responsavel por ter o diálogo como usuráio
 const readline = require("readline-sync");
 
 class Hero {
@@ -22,7 +24,17 @@ class Hero {
         attackMessage = "artes marciais!";
         break;
       default:
-        attackMessage = "Favor escolha uma das classes disponíveis!";
+        console.log("Favor escolha uma das classes disponíveis!");
+        let vocation;
+        do {
+          vocation = readline
+            .question(
+              "Wich class do you prefer to be? (Warrior,Wizard,Ninja,Monk) "
+            )
+            .toLowerCase();
+        } while (!["warrior", "wizard", "ninja", "monk"].includes(vocation));
+        this.vocation = vocation;
+        return this.atack();
     }
     return attackMessage;
   }
@@ -43,7 +55,7 @@ while (proceed) {
       "O nobre herói " + myHero.name + " atacou usando " + myHero.atack()
     );
 
-    let ask = readline.question("Deseja criar outro herói? (y/n) ");
+    let ask = readline.question("Do you want to create another Hero? (y/n) ");
     proceed = ask.toLowerCase() === "y";
   } else {
     console.log("Você é menor de idade e não pode acessar o jogo!");
